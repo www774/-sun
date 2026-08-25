@@ -12,12 +12,15 @@ permissions:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    # A 股全市场历史数据首次扫描需要较长时间，放宽到 60 分钟
     timeout-minutes: 60
 
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          # 禁止并发运行，避免两个扫描同时向 main 推送
+          persist-credentials: true
 
       - name: Setup Python
         uses: actions/setup-python@v6
@@ -35,12 +38,19 @@ jobs:
 
       - name: Commit daily report and stock list
         run: |
+          set -e
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add reports/
+
           if git diff --cached --quiet; then
             echo "No report changes to commit."
-          else
-            git commit -m "Auto update daily convex bullish 52W stock list"
-            git push
+            exit 0
           fi
+
+          git commit -m "Auto update daily convex bullish 52W stock list"
+
+          # 扫描期间如果 main 有新提交，先同步远端再推送，避免 non-fast-forward
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
