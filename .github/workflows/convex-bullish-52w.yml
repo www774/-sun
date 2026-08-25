@@ -12,7 +12,8 @@ permissions:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # A 股全市场历史数据首次扫描需要较长时间，放宽到 60 分钟
+    timeout-minutes: 60
 
     steps:
       - name: Checkout
