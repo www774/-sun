@@ -1,18 +1,15 @@
-姓名：名称：Docker 镜像 CI
+name: Docker Image CI
 
+# 已暂停自动构建，避免影响股票量化扫描工作流。
+# 如以后需要 Docker 构建，可在 Actions 中手动运行。
 on:
-  push:
-    branches: [    分支：[“主”]"master" ]
-  pull_request:
-    branches: [    分支：[“主”]"master" ]
+  workflow_dispatch:
 
 jobs:
-
   build:
-
-    runs-on:     运行：ubuntu-latest
-
+    runs-on: ubuntu-latest
     steps:
-    - uses:     - 使用：actions/checkout@v3
-    - name:     - 名称：构建 Docker 镜像
-      run:       运行： docker build 。--file Dockerfile --tag my-image-name:$(日期 +%s): $(日期 +%s)
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build --file Dockerfile --tag my-image-name:latest .
