@@ -16,10 +16,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
           cache: "pip"
@@ -32,7 +32,7 @@ jobs:
           PYTHONPATH: .
         run: python instock/job/convex_bullish_52w_daily_job.py
 
-      - name: Commit daily report
+      - name: Commit daily report and stock list
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -40,6 +40,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No report changes to commit."
           else
-            git commit -m "Auto update convex bullish 52W report"
+            git commit -m "Auto update daily convex bullish 52W stock list"
             git push
           fi
