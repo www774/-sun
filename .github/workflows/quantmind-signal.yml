@@ -1,0 +1,55 @@
+name: QuantMind Signal Daily
+
+on:
+  schedule:
+    # 北京时间工作日 17:45（UTC 09:45）
+    - cron: "45 9 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: quantmind-signal-daily
+  cancel-in-progress: false
+
+jobs:
+  signal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Run QuantMind signal scan
+        env:
+          PYTHONPATH: .
+        run: python instock/job/quantmind_signal_daily_job.py
+
+      - name: Commit signal report
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/quantmind_signal_*.csv reports/quantmind_signal_*.json reports/quantmind_signal_*.md
+          if git diff --cached --quiet; then
+            echo "No signal report changes to commit."
+            exit 0
+          fi
+          git commit -m "Auto update QuantMind daily signal report"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
