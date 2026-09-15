@@ -1,0 +1,62 @@
+[
+  {
+    "date": "2026-09-14",
+    "code": "603880",
+    "name": "南卫股份",
+    "close": 9.87,
+    "ma5": 9.86200000000001,
+    "ma10": 9.846,
+    "ma20": 9.417499999999992,
+    "convex": true,
+    "bullish_ma": true,
+    "year_high_10d": true,
+    "breakout_date": "2026-09-08",
+    "ma20_slope_first": 0.13661111111111068,
+    "ma20_slope_second": 0.10111111111111132
+  },
+  {
+    "date": "2026-09-14",
+    "code": "603679",
+    "name": "华体科技",
+    "close": 24.97,
+    "ma5": 25.362000000000013,
+    "ma10": 23.911000000000033,
+    "ma20": 23.312000000000012,
+    "convex": true,
+    "bullish_ma": true,
+    "year_high_10d": true,
+    "breakout_date": "2026-09-09",
+    "ma20_slope_first": 0.25055555555555625,
+    "ma20_slope_second": 0.08461111111111129
+  },
+  {
+    "date": "2026-09-14",
+    "code": "603268",
+    "name": "松发股份",
+    "close": 195.51,
+    "ma5": 196.54,
+    "ma10": 192.6940000000001,
+    "ma20": 188.91149999999993,
+    "convex": true,
+    "bullish_ma": true,
+    "year_high_10d": true,
+    "breakout_date": "2026-09-11",
+    "ma20_slope_first": 1.7126666666666652,
+    "ma20_slope_second": 0.8010555555555546
+  },
+  {
+    "date": "2026-09-14",
+    "code": "603228",
+    "name": "景旺电子",
+    "close": 108.21,
+    "ma5": 109.30599999999993,
+    "ma10": 101.537,
+    "ma20": 97.26949999999995,
+    "convex": true,
+    "bullish_ma": true,
+    "year_high_10d": true,
+    "breakout_date": "2026-09-09",
+    "ma20_slope_first": 0.8948888888888923,
+    "ma20_slope_second": 0.5038888888888885
+  }
+]
